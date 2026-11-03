@@ -1,0 +1,11 @@
+// Pengaturan kontak: isi dengan nomor WhatsApp resmi format internasional tanpa tanda +, spasi, atau strip.
+const WHATSAPP_NUMBER = "";
+const menuButton=document.querySelector('.menu-toggle');
+const nav=document.querySelector('.nav-links');
+if(menuButton&&nav)menuButton.addEventListener('click',()=>{nav.classList.toggle('open');menuButton.setAttribute('aria-expanded',nav.classList.contains('open')?'true':'false')});
+const page=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===page)a.classList.add('active')});
+const search=document.querySelector('#animalSearch'),category=document.querySelector('#animalCategory'),region=document.querySelector('#animalRegion');
+function filterAnimals(){const q=(search?.value||'').toLowerCase(),c=category?.value||'',r=region?.value||'';let shown=0;document.querySelectorAll('[data-animal]').forEach(card=>{const ok=(!q||card.textContent.toLowerCase().includes(q))&&(!c||card.dataset.category===c)&&(!r||card.dataset.region===r);card.style.display=ok?'':'none';if(ok)shown++});const empty=document.querySelector('#emptyResults');if(empty)empty.style.display=shown?'none':'block'}
+[search,category,region].forEach(el=>el?.addEventListener('input',filterAnimals));
+document.querySelectorAll('[data-whatsapp]').forEach(btn=>btn.addEventListener('click',()=>{const message=btn.dataset.message||'Halo, saya ingin bertanya tentang Pasar Hewan Pati.';if(!/^[0-9]{8,15}$/.test(WHATSAPP_NUMBER)){alert('Nomor WhatsApp resmi belum diatur. Silakan hubungi pengelola untuk informasi kontak.');return}window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank','noopener')}));
+const form=document.querySelector('#contactForm');if(form)form.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(form);const msg=`Halo Pasar Hewan Pati.\nNama: ${data.get('name')}\nKontak: ${data.get('contact')}\nKeperluan: ${data.get('purpose')}\nPesan: ${data.get('message')}`;if(!/^[0-9]{8,15}$/.test(WHATSAPP_NUMBER)){alert('Formulir ini belum terhubung ke server dan nomor WhatsApp resmi belum diatur. Data tidak disimpan.');return}window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg),'_blank','noopener')});
