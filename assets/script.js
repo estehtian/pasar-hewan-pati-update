@@ -1,5 +1,5 @@
 // Pengaturan kontak: isi dengan nomor WhatsApp resmi format internasional tanpa tanda +, spasi, atau strip.
-const WHATSAPP_NUMBER = "";
+const WHATSAPP_NUMBER = "6281228682792";
 const menuButton=document.querySelector('.menu-toggle');
 const nav=document.querySelector('.nav-links');
 if(menuButton&&nav)menuButton.addEventListener('click',()=>{nav.classList.toggle('open');menuButton.setAttribute('aria-expanded',nav.classList.contains('open')?'true':'false')});
